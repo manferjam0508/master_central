@@ -1,58 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Máster Central - Gestión de Reservas de Laboratorios
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web desarrollado en **Laravel 11 + PHP 8.4 + PostgreSQL** para la gestión de reservas de laboratorios de la Universidad Central.
 
-## About Laravel
+## Tecnologías utilizadas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Laravel 11
+- PHP 8.4
+- PostgreSQL
+- Bootstrap 5 (CDN)
+- Blade (motor de plantillas)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Modelo de base de datos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+El diseño relacional incluye 4 tablas principales:
 
-## Learning Laravel
+- **laboratories**: Laboratorios (fotografía, video, sonido) con capacidad
+- **user_types**: Tipos de usuario (Estudiante, Docente, Administrativo)
+- **dependencies**: Dependencias o programas académicos
+- **reservations**: Reservas con fechas, horarios y observaciones
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Diagrama ER incluido en el repositorio.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Funcionalidades implementadas
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+| Funcionalidad | Descripción |
+|---------------|-------------|
+| Crear reserva | Formulario con validación de campos obligatorios |
+| Ver reservas | Lista con filtros por nombre, laboratorio y fecha |
+| Editar reserva | Modificación completa de datos |
+| Eliminar reserva | Eliminación con confirmación |
+| Validación de solapamiento | Evita reservas cruzadas en el mismo laboratorio |
+| Paginación | 5 reservas por página |
 
-## Agentic Development
+## Instalación y configuración
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Requisitos previos
+- PHP 8.2 o superior
+- Composer
+- PostgreSQL
+- Laravel Herd (o servidor local equivalente)
 
-```bash
-composer require laravel/boost --dev
+### Pasos de instalación
 
-php artisan boost:install
-```
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/manferjam0508/master_central.git
+   cd master_central
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+   # Máster Central - Gestión de Reservas de Laboratorios
 
-## Contributing
+Sistema web desarrollado en **Laravel 11 + PHP 8.4 + PostgreSQL** para la gestión de reservas de laboratorios de la Universidad Máster Central.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Instalar las dependencias**
+   ```bash
+   composer install
 
-## Code of Conduct
+3. **Configurar las variables del entorno **
+   ```bash
+   copy .env.example .env
+   
+   Editar .env con los datos de conexión de PostgreSQL
+   
+   ```env
+   DB_CONNECTION=pgsql
+   DB_HOST=127.0.0.1
+   DB_PORT=5432
+   DB_DATABASE=db_mastercent
+   DB_USERNAME=postgres
+   DB_PASSWORD=Tempestad26*
+   
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Generar la clave de apliación**
+   ```bash
+   php artisan key:generate   
 
-## Security Vulnerabilities
+5. **Crear base de datos en PostgreSQL**
+   ```sql
+   CREATE DATABASE db_mastercent; 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. **Ejecutar migraciones y seeders**
+   ```bash
+   php artisan migrate --seed
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7. **Iniciar Servidor**
+   ```bash
+   php artisan serve
+
+
+8. **Acceder a la aplicación**
+   ```plain
+   http://localhost:8000
+
+### Datos de prueba para realizar el seeder
+
+Las migraciones incluyen datos iniciales:
+
+| Laboratorio | Capacidad |
+|---------------|-------------|
+| Lab Fotografia | 20 |
+| Lab Video | 30 |
+| Lab Sonido | 25 |
+
+| Tipos de Usuario |
+|---------------|
+| Estudiante | 
+| Docente |
+| Administrativo | 
+
+| Dependencias |
+|---------------|
+| Ingenieria de Sistemas | 
+| Diseño Grafico |
+| Comunicacion Social | 
+| Musica |
+| Cine y Television | 
+
+### Estructura del proyecto
+
+ ```plain
+  master_central/
+├── app/
+│   ├── Http/Controllers/ReservationController.php
+│   └── Models/ (Laboratory, UserType, Dependency, Reservation)
+├── database/
+│   ├── migrations/ (4 tablas + migraciones base Laravel)
+│   └── seeders/DatabaseSeeder.php
+├── resources/views/reservas/ (index, create, edit, layouts)
+└── routes/web.php
+ ```
+ 
+
+### Licencia educativa con motivo de presentación de prueba técnica ###
+
+
+
+
+
+
+
+
+
+  
+   
+  
